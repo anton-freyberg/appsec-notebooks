@@ -1,0 +1,322 @@
+{
+    "name": "Guide Introduction to DQL",
+    "version": "5",
+    "defaultTimeframe": {
+        "from": "now-2h",
+        "to": "now"
+    },
+    "sections": [
+        {
+            "id": "236e4e24-5cde-40dc-961e-ab3763301bf0",
+            "type": "markdown",
+            "markdown": "### Step 1\nThe DQL [fetch](https://docs.dynatrace.com/docs/platform/grail/dynatrace-query-language/commands/old-index#fetch)﻿ command defines which data to load from Dynatrace and optionally process in the following processing pipeline steps.\n\nThe `fetch` command requires a reference to the kind of data that should be retrieved by the initial processing pipeline."
+        },
+        {
+            "id": "a02dcf8b-d96f-471d-af18-6e24fd35d31f",
+            "type": "dql",
+            "showTitle": false,
+            "state": {
+                "input": {
+                    "value": "fetch logs",
+                    "timeframe": {
+                        "from": "now-2h",
+                        "to": "now"
+                    }
+                },
+                "state": "idle",
+                "davis": {
+                    "includeLogs": true,
+                    "davisVisualization": {
+                        "isAvailable": true
+                    }
+                },
+                "visualizationSettings": {
+                    "thresholds": [],
+                    "chartSettings": {
+                        "gapPolicy": "connect",
+                        "circleChartSettings": {
+                            "groupingThresholdType": "relative",
+                            "groupingThresholdValue": 0,
+                            "valueType": "relative"
+                        },
+                        "categoryOverrides": {}
+                    },
+                    "singleValue": {
+                        "showLabel": true,
+                        "label": "",
+                        "prefixIcon": "",
+                        "autoscale": true,
+                        "alignment": "center"
+                    },
+                    "table": {
+                        "rowDensity": "condensed",
+                        "enableSparklines": false,
+                        "hiddenColumns": [],
+                        "firstVisibleRowIndex": 0,
+                        "columnWidths": {}
+                    }
+                }
+            }
+        },
+        {
+            "id": "3bcaeb3e-6f41-4a02-acad-fc9802d2448d",
+            "type": "markdown",
+            "markdown": "### Step 2\nNarrow down the requested records with [filter](https://docs.dynatrace.com/docs/platform/grail/dynatrace-query-language/commands/old-index#filter)﻿.\n\nUse operators like == or != to include or exclude fields with specific values. Functions like endsWith or contains let you include fields that end with or contain a specific string."
+        },
+        {
+            "id": "ad32848a-f628-4188-9f46-104739f95bf1",
+            "type": "dql",
+            "showTitle": false,
+            "state": {
+                "input": {
+                    "value": "fetch logs\n| filter dt.process.name == \" java unguard-microblog-service-*\"",
+                    "timeframe": {
+                        "from": "now-2h",
+                        "to": "now"
+                    }
+                },
+                "state": "idle",
+                "davis": {
+                    "includeLogs": true,
+                    "davisVisualization": {
+                        "isAvailable": true
+                    }
+                },
+                "visualizationSettings": {
+                    "thresholds": [],
+                    "chartSettings": {
+                        "gapPolicy": "connect",
+                        "circleChartSettings": {
+                            "groupingThresholdType": "relative",
+                            "groupingThresholdValue": 0,
+                            "valueType": "relative"
+                        },
+                        "categoryOverrides": {}
+                    },
+                    "singleValue": {
+                        "showLabel": true,
+                        "label": "",
+                        "prefixIcon": "",
+                        "autoscale": true,
+                        "alignment": "center"
+                    },
+                    "table": {
+                        "rowDensity": "condensed",
+                        "enableSparklines": false,
+                        "hiddenColumns": [],
+                        "firstVisibleRowIndex": 0,
+                        "columnWidths": {}
+                    }
+                }
+            }
+        },
+        {
+            "id": "945e04c6-9465-4128-bae0-85df7a1778d9",
+            "type": "markdown",
+            "markdown": "### Step 2\nBy default, all [fields](https://docs.dynatrace.com/docs/platform/grail/dynatrace-query-language/commands/old-index#fields) of all records are returned. This is often not needed, e.g. if you want to show only the relevant information of records to the user of your app.\n\nUse the fields﻿ command to simplify the returned records and also reduce the size of your response. This can improve page load times of your app."
+        },
+        {
+            "id": "c61a492b-3f61-46b2-b8d8-918342b0bd28",
+            "type": "dql",
+            "showTitle": false,
+            "state": {
+                "input": {
+                    "value": "fetch logs\n| filter dt.process.name == \" java unguard-microblog-service-*\"\n| fields timestamp, content, loglevel, trace_id",
+                    "timeframe": {
+                        "from": "now-2h",
+                        "to": "now"
+                    }
+                },
+                "state": "idle",
+                "davis": {
+                    "includeLogs": true,
+                    "davisVisualization": {
+                        "isAvailable": true
+                    }
+                },
+                "visualizationSettings": {
+                    "thresholds": [],
+                    "chartSettings": {
+                        "gapPolicy": "connect",
+                        "circleChartSettings": {
+                            "groupingThresholdType": "relative",
+                            "groupingThresholdValue": 0,
+                            "valueType": "relative"
+                        },
+                        "categoryOverrides": {}
+                    },
+                    "singleValue": {
+                        "showLabel": true,
+                        "label": "",
+                        "prefixIcon": "",
+                        "autoscale": true,
+                        "alignment": "center"
+                    },
+                    "table": {
+                        "rowDensity": "condensed",
+                        "enableSparklines": false,
+                        "hiddenColumns": [],
+                        "firstVisibleRowIndex": 0,
+                        "columnWidths": {}
+                    }
+                }
+            }
+        },
+        {
+            "id": "16a76dfa-388f-4a85-9b5b-edad97a845a8",
+            "type": "markdown",
+            "markdown": "### Step 3\nNarrow down the requested records with [filter](https://docs.dynatrace.com/docs/platform/grail/dynatrace-query-language/commands/old-index#filter)﻿.\n\nUse operators like == or != to include or exclude fields with specific values. Functions like endsWith or contains let you include fields that end with or contain a specific string."
+        },
+        {
+            "id": "51b27ff6-8eaf-4d2a-a6fc-2c5f45a0f88b",
+            "type": "dql",
+            "showTitle": false,
+            "state": {
+                "input": {
+                    "value": "fetch logs\n| filter dt.process.name == \" java unguard-microblog-service-*\"\n| fields timestamp, content, loglevel, trace_id\n| filter contains(content, \"Vulnerable function\")",
+                    "timeframe": {
+                        "from": "now-2h",
+                        "to": "now"
+                    }
+                },
+                "state": "idle",
+                "davis": {
+                    "includeLogs": true,
+                    "davisVisualization": {
+                        "isAvailable": true
+                    }
+                },
+                "visualizationSettings": {
+                    "thresholds": [],
+                    "chartSettings": {
+                        "gapPolicy": "connect",
+                        "circleChartSettings": {
+                            "groupingThresholdType": "relative",
+                            "groupingThresholdValue": 0,
+                            "valueType": "relative"
+                        },
+                        "categoryOverrides": {}
+                    },
+                    "singleValue": {
+                        "showLabel": true,
+                        "label": "",
+                        "prefixIcon": "",
+                        "autoscale": true,
+                        "alignment": "center"
+                    },
+                    "table": {
+                        "rowDensity": "condensed",
+                        "enableSparklines": false,
+                        "hiddenColumns": [],
+                        "firstVisibleRowIndex": 0,
+                        "columnWidths": {}
+                    }
+                }
+            }
+        },
+        {
+            "id": "8bd35003-2d35-4f85-9e5b-f2ff669caaa8",
+            "type": "markdown",
+            "markdown": "### Step 4\nThe [parse](https://docs.dynatrace.com/docs/platform/grail/dynatrace-query-language/commands/old-index#parse)﻿ command extracts information form a record field and puts the result(s) into one or more fields as specified in the pattern.\n\nThe parse command works in combination with the [Dynatrace Pattern Language﻿](https://docs.dynatrace.com/docs/platform/grail/dynatrace-pattern-language) for parsing strings."
+        },
+        {
+            "id": "f2587938-6573-4a39-bac5-4e4fddde0289",
+            "type": "dql",
+            "showTitle": false,
+            "state": {
+                "input": {
+                    "value": "fetch logs\n| filter dt.process.name == \" java unguard-microblog-service-*\"\n| fields timestamp, content, loglevel\n| filter contains(content, \"Vulnerable function\")\n| parse content, \"LD 'Vulnerable function ' LD:function ' '\"",
+                    "timeframe": {
+                        "from": "now-2h",
+                        "to": "now"
+                    }
+                },
+                "state": "idle",
+                "davis": {
+                    "includeLogs": true,
+                    "davisVisualization": {
+                        "isAvailable": true
+                    }
+                },
+                "visualizationSettings": {
+                    "thresholds": [],
+                    "chartSettings": {
+                        "gapPolicy": "connect",
+                        "circleChartSettings": {
+                            "groupingThresholdType": "relative",
+                            "groupingThresholdValue": 0,
+                            "valueType": "relative"
+                        },
+                        "categoryOverrides": {}
+                    },
+                    "singleValue": {
+                        "showLabel": true,
+                        "label": "",
+                        "prefixIcon": "",
+                        "autoscale": true,
+                        "alignment": "center"
+                    },
+                    "table": {
+                        "rowDensity": "condensed",
+                        "enableSparklines": false,
+                        "hiddenColumns": [],
+                        "firstVisibleRowIndex": 0,
+                        "columnWidths": {}
+                    }
+                }
+            }
+        },
+        {
+            "id": "274037ac-1aea-4b0c-ad02-83674cb02530",
+            "type": "markdown",
+            "markdown": "### Step 5\nThe [makeTimeseries](https://docs.dynatrace.com/docs/shortlink/dql-commands#makeTimeseries) command provides a convenient way to chart raw non-metric data (such as events or logs) over time."
+        },
+        {
+            "id": "af367ee6-e144-4f1b-be4a-de7ca30c5f1b",
+            "type": "dql",
+            "showTitle": false,
+            "state": {
+                "input": {
+                    "value": "fetch logs\n| filter dt.process.name == \" java unguard-microblog-service-*\"\n| fields timestamp, content, loglevel\n| filter loglevel == \"INFO\"\n| parse content, \"LD 'Vulnerable function ' LD:function ' was called'\"\n| filter isNotNull(function)\n| makeTimeseries count = count(), by:{function}, time:{timestamp}",
+                    "timeframe": {
+                        "from": "now-2h",
+                        "to": "now"
+                    }
+                },
+                "state": "idle",
+                "davis": {
+                    "includeLogs": true,
+                    "davisVisualization": {
+                        "isAvailable": true
+                    }
+                },
+                "visualizationSettings": {
+                    "thresholds": [],
+                    "chartSettings": {
+                        "gapPolicy": "connect",
+                        "circleChartSettings": {
+                            "groupingThresholdType": "relative",
+                            "groupingThresholdValue": 0,
+                            "valueType": "relative"
+                        },
+                        "categoryOverrides": {}
+                    },
+                    "singleValue": {
+                        "showLabel": true,
+                        "label": "",
+                        "prefixIcon": "",
+                        "autoscale": true,
+                        "alignment": "center"
+                    },
+                    "table": {
+                        "rowDensity": "condensed",
+                        "enableSparklines": false,
+                        "hiddenColumns": [],
+                        "firstVisibleRowIndex": 0,
+                        "columnWidths": {}
+                    }
+                }
+            }
+        }
+    ]
+}
